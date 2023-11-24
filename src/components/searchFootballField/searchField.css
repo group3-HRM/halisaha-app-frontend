@@ -1,0 +1,44 @@
+/* SearchPage.css */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* İçeriği dikey olarak en üste hizalar */
+    gap: 10px;
+    padding-top: 20px; /* Üstten biraz boşluk ekleyebilirsiniz */
+}
+
+.search-box {
+    width: 100%;
+    max-width: 400px; /* Maksimum genişlik */
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.search-box input,
+.search-box button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px; /* Aralık */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.search-box input:focus,
+.search-box button:focus {
+    border-color: #007bff;
+}
+
+.search-box button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #0056b3;
+}

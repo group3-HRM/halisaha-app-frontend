@@ -1,0 +1,65 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./arka-plan.png'); /* Arka plan resminizin yolu */
+    background-size: cover;
+  }
+  
+  .login-form {
+    padding: 10%;
+    background: rgba(0, 0, 0, 0.5); /* Yarı saydam siyah arka plan */
+    border-radius: 10px;
+    width: 300px;
+    
+  }
+  
+  .form-title {
+    color: white;
+    font-family: 'Your Stylish Font', sans-serif; /* Burada özel bir font kullanabilirsiniz */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 2%;
+    background-color: #800080; /* Mor renk */
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .login-button:hover {
+    background-color: #5c007a; /* Daha koyu mor renk */
+  }
+  .register-redirect {
+    color: white; /* Metin rengi */
+    margin-top: 20px; /* Üstten boşluk */
+    text-align: center; /* Metni ortala */
+  }
+  
+  .register-link {
+    color: #4e9af1; /* Link rengi */
+    text-decoration: none; /* Alt çizgiyi kaldır */
+  }
+  
+  .register-link:hover {
+    text-decoration: underline; /* Hover durumunda alt çizgi ekle */
+  }

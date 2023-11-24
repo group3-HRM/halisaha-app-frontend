@@ -1,0 +1,51 @@
+/* Sidebar.css */
+.sidebar {
+    width: 20%;
+    background-color: #333;
+    color: white;
+    height: 100vh; /* Tam ekran yüksekliği */
+    padding: 20px;
+  }
+  
+  .sidebar-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-profile-image {
+    width: 100px; /* Profil resmi genişliği */
+    height: 100px; /* Profil resmi yüksekliği */
+    border-radius: 50%; /* Yuvarlak profil resmi */
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-nav-item {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-nav-item:hover {
+    background-color: #555;
+  }
+  
+  .sidebar-logout {
+    padding: 10px;
+    width: 100%;
+    background-color: red;
+    border: none;
+    color: white;
+  }
+  

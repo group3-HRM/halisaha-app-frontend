@@ -1,0 +1,33 @@
+/* App.css veya global bir stil dosyasında */
+
+.app-container {
+    display: flex;
+  }
+  .home-background {
+    /* background-image: url('./home/homebackround.webp'); Resmin yolu doğru olmalı */
+    background-color: darkgray;
+    background-size: cover; /* Arka planın kaplayacak şekilde ayarlanması */
+    background-position: center; /* Resmin ortalanması */
+    background-repeat: no-repeat; /* Resmin tekrar etmemesi */
+    height: 100%; /* Tüm görünür ekranı kaplaması */
+    
+  }
+  
+  .sidebar {
+    /* Sidebar için gerekli stiller */
+    width: 200px; /* veya sabit bir genişlik */
+  }
+  
+  .content {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* İçeriği yatay olarak ortalar */
+  }
+  
+  .search-container {
+    width: 100%; /* Tam genişlik alır, ama max-width ile sınırlandırılabilir */
+     max-width: none; /*Maksimum genişlik */
+    margin: 0 auto; /* Yatay olarak otomatik margin ile ortalanır */
+  }
+  
