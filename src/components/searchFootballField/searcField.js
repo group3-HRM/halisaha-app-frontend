@@ -3,8 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import "./searchField.css";
 
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import { Grid, Button, Paper, Typography } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { jwtDecode } from "jwt-decode";
 //
 import "react-datepicker/dist/react-datepicker.css";
@@ -108,7 +110,45 @@ const SearchPage = () => {
   const [hours, setHours] = useState(initialHours);
   //
   const [selectedHour, setSelectedHour] = useState(hours[0].label);
+  const [activeHourIndex, setActiveHourIndex] = useState(null); 
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar'ın açık olup olmadığını kontrol eder
 
+
+  const handleHourClick = (index) => {
+    if (!hours[index].isOccupied) {
+      setSelectedHour(hours[index].label);
+      setActiveHourIndex(index); // Seçili olan saat diliminin index'ini state'e kaydet
+    }
+  };
+  const renderTimeSlots = () => (
+    <Grid container spacing={2}>
+  {hours.map((hour, index) => (
+    <Grid item xs={3} sm={2} md={1} key={index}>
+      <Paper
+        elevation={hour.isOccupied ? 0 : 3} // Dolu ise gölge yok, boş ise gölge var
+        style={{
+          padding: '10px',
+          borderRadius: '10px', // Kenarları yuvarlak
+          backgroundColor: hour.isOccupied ? '#f44336' : '#e0e0e0', // Kırmızı veya gri arka plan
+          color: hour.isOccupied ? 'white' : 'black', // Yazı rengi
+          textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '25%', // Yükseklik doldur
+          cursor: hour.isOccupied ? 'not-allowed' : 'pointer', // İmleç stilini ayarla
+          border: index === activeHourIndex ? '2px solid green' : 'none', // Eğer saat dilimi seçiliyse yeşil çerçeve olacak
+        }}
+        onClick={() => handleHourClick(index)}
+      >
+        <Typography variant="body1">
+          {hour.label}
+        </Typography>
+      </Paper>
+    </Grid>
+  ))}
+</Grid>
+  );
   const handleSearch = async () => {
     const queryParams = new URLSearchParams({ city, district }).toString(); 
     try {
@@ -165,7 +205,7 @@ const SearchPage = () => {
 
     const isOccupied = occupiedHours.some(occupiedHour => {
       const startDateLocal = convertToLocaleTime(occupiedHour.startDate);
-      const endDateLocal = convertToLocaleTime(occupiedHour.endDate);
+      // const endDateLocal = convertToLocaleTime(occupiedHour.endDate);
 
       return startDateLocal.getDate() === selectedDate.getDate() &&
              startDateLocal.getMonth() === selectedDate.getMonth() &&
@@ -271,11 +311,18 @@ const fetchAndMarkOccupiedHours = async (fieldId, date) => {
       // İşlem başarılı
       const responseData = await response.json();
       console.log("Rent successful", responseData);
+      setOpenSnackbar(true);
       // ... Başarı durumunda yapılacak işlemler
     } catch (error) {
       console.error("Rent failed", error);
       // ... Hata durumunda yapılacak işlemler
     }
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false); // Snackbar'ı kapat
   };
   
   return (
@@ -303,27 +350,21 @@ const fetchAndMarkOccupiedHours = async (fieldId, date) => {
         selected={selectedDate}
         onChange={handleDateChange}
       />
-     <Select
-      value={selectedHour}
-      onChange={(e) => setSelectedHour(e.target.value)}
-      displayEmpty
-      inputProps={{ "aria-label": "Without label" }}
-    >
-        <MenuItem value="" disabled>
-    Saat Aralığı Seçin
-  </MenuItem>
-  {hours.map((hour, index) => (
-    <MenuItem 
-      key={index} 
-      value={hour.label} 
-      style={{ color: hour.isOccupied ? 'red' : 'green' }} // Kırmızı veya yeşil renk ataması
-      disabled={hour.isOccupied} // Dolu saat aralıklarını devre dışı bırak
-    >
-      {hour.label}
-    </MenuItem>
-  ))}
-</Select>
-      <button onClick={handleRent}>Kirala</button>
+     {renderTimeSlots()} {/* Saat seçimini render eden fonksiyonu burada çağırın */}
+     <Button
+  variant="contained" // Butonun dolu renkli olmasını sağlar
+  color="primary" // Temanın ana rengini kullanır
+  size="large" // Butonun boyutunu büyütür
+  startIcon={<ShoppingCartIcon />} // Butonun başına ikon ekler
+  onClick={handleRent}
+>
+  Kirala
+</Button>
+<Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          İşlem başarılı!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
