@@ -35,17 +35,50 @@
     color: white;
     text-decoration: none;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
   }
   
   .sidebar-nav-item:hover {
     background-color: #555;
   }
-  
-  .sidebar-logout {
-    padding: 10px;
-    width: 100%;
-    background-color: red;
-    border: none;
-    color: white;
+  .sidebar-settings {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
   }
   
+  .sidebar-settings-item {
+    padding: 10px; /* Tüm sidebar öğeleri ile aynı padding değerini kullanın */
+    color: white;
+    text-decoration: none;
+    margin-bottom: 5px;
+    text-align: left; /* Metni sola hizalayın */
+  }
+  
+  .sidebar-nav-item:hover,
+.sidebar-settings-item:hover {
+  background-color: #555; /* Üzerine gelindiğinde değişecek renk */
+}
+.sidebar-logout {
+  display: block; /* Link'i blok element yapın */
+  padding: 10px;
+  margin-top: 10px; /* Diğer menü öğeleriyle arasında boşluk bırakın */
+  background-color: red; /* Butonun arka plan rengi */
+  text-align: center; /* Metni ortala */
+  text-decoration: none; /* Alt çizgiyi kaldır */
+  color: white; /* Yazı rengi */
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar-logout:hover {
+  background-color: #d32f2f; /* Üzerine gelindiğinde koyulaşacak bir kırmızı */
+}
+
+  .expand-icon {
+    font-size: 18px;
+    color: white;
+  }
