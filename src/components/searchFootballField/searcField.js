@@ -402,7 +402,7 @@ const SearchPage = () => {
       >
         {/* // Dialogun maksimum genişliğini belirtir (xs, sm, md, lg, xl) */}
         <DialogTitle>Saha Kiralama</DialogTitle>
-        <DialogContent style={{ height: "auto", overflowY: "unset" }}>
+        <DialogContent style={{ height: '22vh', overflowY: "unset" }}>
           <div style={{ marginBottom: "20px" }}>
             {" "}
             {/* Tarih seçimine alttan boşluk ekler */}
