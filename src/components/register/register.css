@@ -92,4 +92,21 @@
       padding: 15px;
     }
   }
+  .role-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    .role-select {
+      padding: 15px;
+    }
+  }
+  .role-description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+  }
   
