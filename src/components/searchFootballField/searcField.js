@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import "./searchField.css";
@@ -11,6 +11,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import SearchIcon from '@mui/icons-material/Search';
 import { jwtDecode } from "jwt-decode";
 //
 import "react-datepicker/dist/react-datepicker.css";
@@ -117,6 +122,40 @@ const SearchPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
 
+  const [cities, setCities] = useState([]); // Tüm şehirler için
+const [districts, setDistricts] = useState([]); // Seçilen şehre ait ilçeler için
+const [selectedCity, setSelectedCity] = useState(""); // Seçilen şehir için
+const [selectedDistrict, setSelectedDistrict] = useState("");
+
+
+useEffect(() => {
+  fetch('http://localhost:4042/city/{cities}/city')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Cities:', data); // API'den gelen şehirleri logla
+      setCities(data);
+    })
+    .catch(error => console.error('Error fetching cities:', error));
+}, []);
+useEffect(() => {
+  // Kullanıcı yeni bir şehir seçtiğinde çalışacak kod
+  if (selectedCity) {
+    // Seçilen şehire göre ilçeleri çeken API isteği
+    fetch(`http://localhost:4042/city/${selectedCity}/districts`)
+      .then(response => response.json())
+      .then(data => {
+        setDistricts(data); // API'den gelen ilçeleri setDistricts ile güncelle
+      })
+      .catch(error => {
+        console.error('Error fetching districts:', error);
+        // Hata durumunda yapılacak işlemler
+      });
+  }
+
+  // Her seferinde şehir değiştiğinde ilçe seçimini sıfırla
+  setSelectedDistrict("");
+}, [selectedCity]); // Bu useEffect, selectedCity değiştiğinde çalışır
+
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -164,31 +203,27 @@ const SearchPage = () => {
     </Grid>
   );
   const handleSearch = async () => {
-    const queryParams = new URLSearchParams({ city, district }).toString();
+    // URLSearchParams ile şehir ve ilçe değerlerini URL'ye ekleyin
+    const queryParams = new URLSearchParams({ city: selectedCity, district: selectedDistrict }).toString();
+    const url = `http://localhost:4042/football-field/football-field-city-district?${queryParams}`;
     try {
-      const response = await fetch(
-        `http://localhost:4042/football-field/football-field-city-district?${queryParams}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
       if (response.ok) {
         const jsonData = await response.json();
-        // Map the data to include a sequential id starting at 1
-        const transformedData = jsonData.map((item, index) => ({
-          id: index + 1, // Start id at 1 and increment
-          ...item,
-        }));
-        setRows(transformedData);
+        setRows(jsonData);
       } else {
-        console.error("Error:", response.statusText);
+        console.error("Error fetching fields:", response.statusText);
+        setShowErrorSnackbar(true); // Hata olduğunda bildirim göster
       }
     } catch (error) {
       console.error("Error:", error);
+      setShowErrorSnackbar(true); // Hata olduğunda bildirim göster
     }
   };
 
@@ -373,21 +408,53 @@ const SearchPage = () => {
   };
   return (
     <div className="search-container">
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Şehir"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="İlçe"
-          value={district}
-          onChange={(e) => setDistrict(e.target.value)}
-        />
-        <button onClick={handleSearch}>Ara</button>
-      </div>
+    <div className="search-box">
+    <FormControl variant="outlined" className="formControl">
+  <InputLabel htmlFor="city-select">Şehir</InputLabel>
+  <Select
+          labelId="city-select-label"
+          id="city-select"
+          value={selectedCity}
+          onChange={e => setSelectedCity(e.target.value)}
+          label="Şehir"
+        >
+          <MenuItem value="">
+            <em>Şehir</em>
+          </MenuItem>
+          {cities.map(city => (
+            <MenuItem key={city} value={city}>{city}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <FormControl variant="outlined" className="formControl">
+  <InputLabel htmlFor="district-select">İlçe</InputLabel>
+  <Select
+          labelId="district-select-label"
+          id="district-select"
+          value={selectedDistrict}
+          onChange={e => setSelectedDistrict(e.target.value)}
+          label="İlçe"
+        >
+          <MenuItem value="">
+            <em>İlçe</em>
+          </MenuItem>
+          {districts.map(district => (
+            <MenuItem key={district} value={district}>{district}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <Button
+  variant="contained"
+  color="primary"
+  onClick={handleSearch}
+  startIcon={<SearchIcon />}
+>
+  Ara
+</Button>
+
+  </div>
       <div style={{ width: 600, height: 500 }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} />
       </div>

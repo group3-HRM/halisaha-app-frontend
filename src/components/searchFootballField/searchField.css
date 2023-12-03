@@ -1,49 +1,65 @@
 /* SearchPage.css */
 .search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* İçeriği dikey olarak en üste hizalar */
-    gap: 10px;
-    padding-top: 20px; /* Üstten biraz boşluk ekleyebilirsiniz */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.formControl {
+  margin: 8px;
+  width: calc(50% - 16px); /* Her bir form elemanının genişliği */
 }
 
 .search-box {
-    width: 100%;
-    max-width: 400px; /* Maksimum genişlik */
-    margin: auto;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 8px;
+  display: flex;
+  justify-content: center; /* Elemanları merkeze hizala */
+  align-items: center;
+  flex-wrap: wrap; /* Gerekirse alt alta sırala */
+  gap: 8px; /* Elemanlar arasında boşluk */
+  padding: 16px;
+  width: 100%; /* Search box'ın genişliğini %100 yap */
 }
 
-.search-box input,
-.search-box button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px; /* Aralık */
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
-.search-box input:focus,
-.search-box button:focus {
-    border-color: #007bff;
+.search-box .formControl {
+  flex: 1 1 auto; /* Esnek elemanlar */
+  min-width: 120px; /* Minimum genişlik */
 }
 
 .search-box button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px; /* Daha fazla yatay padding */
+  margin-left: 8px; /* Sol taraftan biraz boşluk */
+  min-width: 100px; /* Butonun minimum genişliği */
+}
+
+@media (max-width: 768px) {
+  .formControl, .search-box button {
+    width: 100%; /* Orta boy ekranda genişlikleri %100 yap */
+    margin-top: 8px; /* Üstten boşluk ekle */
+  }
+}
+.search-box button {
+  padding: 12px 24px; /* Daha büyük padding */
+  font-size: 1rem; /* Daha büyük font boyutu */
+  font-weight: 500; /* Font kalınlığı */
+  color: white; /* Beyaz yazı rengi */
+  background-image: linear-gradient(to right, #6db3f2, #1c92d2); /* Gradyan arka plan */
+  border: none; /* Kenarlık kaldırıldı */
+  border-radius: 25px; /* Yuvarlak kenarlar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif bir gölge */
+  cursor: pointer; /* İmleç değişimi */
+  transition: all 0.3s ease; /* Pürüzsüz geçiş efekti */
 }
 
 .search-box button:hover {
-    background-color: #0056b3;
+  background-image: linear-gradient(to right, #1c92d2, #6db3f2); /* Gradyanın yönünü değiştir */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Gölgeyi artır */
 }
-@media (max-width: 600px) {
-  .dialog-custom {
-    top: '10px' !important; 
-  }
+
+.search-box button:focus,
+.search-box button:active {
+  outline: none; /* Fokus halindeki kenarlığı kaldır */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Aktif durumda gölgeyi artır */
 }
