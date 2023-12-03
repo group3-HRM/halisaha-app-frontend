@@ -8,6 +8,7 @@ import UpdateUserPage from '../update/update';
 import ChangePasswordPage from '../UpdatePassword/updatePassword';
 import FootballFieldForm from '../footballFieldAdd/footballFieldAdd';
 import FootballFieldsPage from '../footballFieldList/footballFieldList';
+import RentalHistoryPage from '../history/history';
 
 const Home = () => {
     return (
@@ -23,6 +24,7 @@ const Home = () => {
               <Route path="settings/password" element={<ChangePasswordPage/>}/>
               <Route path="fields/add" element={<FootballFieldForm/>}/>
               <Route path="fields/manage" element={<FootballFieldsPage/>}/>
+              <Route path="history" element={<RentalHistoryPage/>}/>
               {/* Home.js içindeki diğer içerikler veya bileşenler için Route'lar eklenebilir */}
             </Routes>
           </main>

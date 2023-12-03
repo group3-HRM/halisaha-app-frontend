@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import "./searchField.css";
 
@@ -124,8 +123,6 @@ const SearchPage = () => {
       headerAlign: "right",
     },
   ];
-  const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
   const [rows, setRows] = useState([]);
 
   const [selectedFootballFieldId, setSelectedFootballFieldId] = useState(null);
@@ -151,7 +148,7 @@ useEffect(() => {
   fetch('http://localhost:4042/city/{cities}/city')
     .then(response => response.json())
     .then(data => {
-      console.log('Cities:', data); // API'den gelen şehirleri logla
+
       setCities(data);
     })
     .catch(error => console.error('Error fetching cities:', error));
