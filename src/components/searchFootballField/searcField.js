@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import "./searchField.css";
 
-import { Grid, Button, Paper, Typography } from "@mui/material";
+import {Card, CardContent, Grid, Button, Paper, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -32,7 +32,26 @@ const initialHours = Array.from({ length: 24 }, (_, index) => ({
   isOccupied: false, // Bu özellik daha sonra saatlerin dolu olup olmadığını belirlemek için kullanılabilir
 }));
 //
-
+const RowCard = ({ row, onSelect }) => {
+  return (
+    <Card variant="outlined" style={{ marginBottom: '1rem' }}>
+      <CardContent>
+        <Typography variant="h5">{row.name}</Typography>
+        <Typography color="textSecondary">{row.telephoneNumber}</Typography>
+        <Typography>{row.address}</Typography>
+        <Typography>{row.price} TL</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginTop: '1rem' }}
+          onClick={() => onSelect(row.id)}
+        >
+          Seç
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
 const SearchPage = () => {
   const columns = [
     {
@@ -455,9 +474,19 @@ useEffect(() => {
 </Button>
 
   </div>
-      <div style={{ width: 600, height: 500 }}>
-        <DataGrid rows={rows} columns={columns} pageSize={5} />
-      </div>
+  {rows.map((row, index) => (
+        <div className="card-container" key={index}>
+          <div className="card-content">
+            <div className="card-title">{row.name}</div>
+            <div className="card-text">{row.telephoneNumber}</div>
+            <div className="card-text">{row.address}</div>
+            <div className="card-text">{row.price} TL</div>
+            <button className="select-button" onClick={() => handleSelectField(row.id)}>
+              Seç
+            </button>
+          </div>
+        </div>
+      ))}
       {/* Saat aralığı seçimi için dropdown */}
       <Dialog
         open={openDialog}

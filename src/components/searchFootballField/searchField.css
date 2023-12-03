@@ -63,3 +63,42 @@
   outline: none; /* Fokus halindeki kenarlığı kaldır */
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Aktif durumda gölgeyi artır */
 }
+.card-container {
+  display: flex;
+  justify-content: center; /* Kartları merkeze al */
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px; /* Arama kutusundan biraz boşluk */
+  width: 100%; /* Genişlik */
+  max-width: 500px; /* Maksimum genişlik */
+  background-color: #ffffff; /* Kartın arka plan rengi */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+  border-radius: 8px; /* Kenar yuvarlaklığı */
+}
+
+.card-content {
+  padding: 20px; /* İçerik için padding */
+}
+
+.card-title {
+  font-size: 1.5rem; /* Başlık font boyutu */
+  margin-bottom: 10px; /* Başlık altındaki boşluk */
+}
+.card-text {
+  font-size: 1rem; /* Metin font boyutu */
+  margin-bottom: 10px; /* Metin altındaki boşluk */
+}
+
+.select-button {
+  background-color: #1c92d2; /* Buton arka plan rengi */
+  color: white; /* Buton yazı rengi */
+  padding: 10px 20px; /* Buton padding */
+  border: none; /* Buton kenarlığı */
+  border-radius: 4px; /* Buton kenar yuvarlaklığı */
+  cursor: pointer; /* İmleç türü */
+  transition: background-color 0.3s; /* Renk değişim animasyonu */
+}
+
+.select-button:hover {
+  background-color: #0b77bd; /* Buton hover arka plan rengi */
+}
