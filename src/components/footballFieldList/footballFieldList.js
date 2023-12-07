@@ -51,7 +51,7 @@ const FootballFieldsPage = () => {
                     {field.city}, {field.district}
                   </Typography>
                 </Box>
-                {/* Diğer bilgiler... */}
+                
               </CardContent>
             </Card>
           </Grid>

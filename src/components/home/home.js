@@ -12,12 +12,13 @@ import RentalHistoryPage from '../history/history';
 
 const Home = () => {
     return (
-      <div className="app-container home-background">
-        <Sidebar /> {/* Sidebar bileşenini çağırıyoruz */}
-        <div className="content">
+      
+      <div className="app-container">
+      <div className="background-image-container"></div>
+          <Sidebar />
+          <div className="content">
           <main>
-            {/* Ana sayfa içeriği */}
-            {/* Dinamik olarak gösterilecek bileşenler için Route'ları burada tanımlayın */}
+
             <Routes>
               <Route path="search" element={<SearchField />} />
               <Route path="settings/user" element={<UpdateUserPage />} />
@@ -25,7 +26,7 @@ const Home = () => {
               <Route path="fields/add" element={<FootballFieldForm/>}/>
               <Route path="fields/manage" element={<FootballFieldsPage/>}/>
               <Route path="history" element={<RentalHistoryPage/>}/>
-              {/* Home.js içindeki diğer içerikler veya bileşenler için Route'lar eklenebilir */}
+      
             </Routes>
           </main>
         </div>
