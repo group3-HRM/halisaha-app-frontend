@@ -8,8 +8,7 @@ const ProtectedRoute = ({ children }) => {
     // Token'ı localStorage'dan al
     const token = localStorage.getItem('token');
     
-    // Token varsa ve backend doğrulamasını yapmak istiyorsanız
-    // burada API çağrısı yapabilirsiniz.
+
     const checkTokenValidity = async () => {
       try {
         // API çağrısını yap
@@ -39,8 +38,7 @@ const ProtectedRoute = ({ children }) => {
     }
   }, [navigate]);
 
-  // Eğer token varsa ve geçerliyse (veya doğrulama yapmadıysanız),
-  // children (korunan bileşen) render edilir.
+
   return <>{children}</>;
 };
 

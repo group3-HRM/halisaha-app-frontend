@@ -6,8 +6,7 @@ import RegisterPage from './components/register/register';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import Home from './components/home/home';
 
-// App.js dosyası
-// ... diğer importlar
+
 
 function App() {
   return (

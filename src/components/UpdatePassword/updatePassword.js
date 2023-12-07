@@ -25,10 +25,9 @@ const ChangePasswordPage = () => {
       return;
     }
 
-    // Clear error message
+  
     setError("");
 
-    // Get user ID from token
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
 
@@ -51,10 +50,10 @@ const ChangePasswordPage = () => {
       );
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
-      // Handle success
+   
       alert("Şifreniz başarıyla güncellendi.");
     } catch (error) {
-      // Handle errors
+ 
       setError(error.message);
     }
   };
@@ -98,7 +97,7 @@ const ChangePasswordPage = () => {
         />
         <Button
           type="submit"
-        //   fullWidth
+    
           variant="contained"
           sx={{
             mt: 3,
